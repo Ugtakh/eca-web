@@ -102,8 +102,8 @@ export default function ContactSection() {
                       </svg>
                     ),
                     label: 'Утас',
-                    value: '+976 7711-2345',
-                    sub: 'Яаралтай: +976 9911-2345',
+                    value: '9901-5338',
+                    sub: '7575-1111',
                   },
                   {
                     icon: (
@@ -120,7 +120,7 @@ export default function ContactSection() {
                       </svg>
                     ),
                     label: 'Имэйл',
-                    value: 'info@electroguard.mn',
+                    value: 'info@eca.mn',
                     sub: '',
                   },
                   {
@@ -138,8 +138,8 @@ export default function ContactSection() {
                       </svg>
                     ),
                     label: 'Хаяг',
-                    value: 'Улаанбаатар хот, Сүхбаатар дүүрэг',
-                    sub: 'Бизнес тауэр, 8 давхар',
+                    value: 'Улаанбаатар хот, Чингэлтэй дүүрэг',
+                    sub: 'MN тауэр',
                   },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
@@ -246,7 +246,7 @@ export default function ContactSection() {
                         value={form.phone}
                         onChange={handleChange}
                         required
-                        placeholder="+976 XXXX-XXXX"
+                        placeholder="12345678"
                         className="input-field"
                       />
                     </div>
