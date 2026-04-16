@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import AppLogo from '@/components/ui/AppLogo';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import AppLogo from '@/components/ui/AppLogo';
+import React, { useState } from 'react';
 
 const navItems = [
   {
@@ -134,66 +134,13 @@ const navItems = [
   },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+const AdminSidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+
   const pathname = usePathname();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === 'admin2026') {
-      setAuthenticated(true);
-    } else {
-      setError('Нууц үг буруу байна');
-    }
-  };
-
-  if (!authenticated) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="w-full max-w-sm">
-          <div className="flex items-center gap-2.5 mb-8 justify-center">
-            <AppLogo size={36} />
-            <span className="font-display font-800 text-lg text-foreground">
-              Electra<span className="text-primary">Guard</span>
-            </span>
-          </div>
-          <div className="p-7 rounded-2xl border border-white/8 bg-surface">
-            <h1 className="font-display font-700 text-foreground text-xl mb-1">Admin хэсэг</h1>
-            <p className="text-muted text-sm mb-6">Нэвтрэхийн тулд нууц үгээ оруулна уу</p>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label className="block text-xs text-muted-2 mb-1.5 font-mono uppercase tracking-wider">
-                  Нууц үг
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setError('');
-                  }}
-                  className="input-field"
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                />
-                {error && <p className="text-xs text-red-400 mt-1">{error}</p>}
-              </div>
-              <button type="submit" className="btn-primary w-full justify-center">
-                Нэвтрэх
-              </button>
-            </form>
-            <p className="text-xs text-muted-2 text-center mt-4">Demo: admin2026</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-background flex">
+    <>
       {/* Sidebar */}
       <aside
         className={`admin-sidebar flex-shrink-0 transition-all duration-300 flex flex-col ${
@@ -201,13 +148,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         }`}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-white/5 flex items-center gap-2.5">
-          <AppLogo size={28} />
-          {sidebarOpen && (
-            <span className="font-display font-700 text-sm text-foreground whitespace-nowrap">
-              Electra<span className="text-primary">Guard</span>
+        <div className="p-4 border-b border-white/5 flex items-center gap-2.5 justify-center">
+          <AppLogo size={80} />
+          {/* {sidebarOpen && (
+            <span className="text-sm font-display font-700 text-foreground whitespace-nowrap">
+              ECA<span className="text-primary">Guard</span>
             </span>
-          )}
+          )} */}
         </div>
 
         {/* Nav */}
@@ -220,7 +167,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 group relative ${
                   isActive
-                    ? 'bg-primary/10 text-primary'
+                    ? 'bg-secondary/10 text-white'
                     : 'text-muted hover:text-foreground hover:bg-white/5'
                 }`}
               >
@@ -229,20 +176,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
                 )}
                 {item.badge && sidebarOpen && (
-                  <span className="ml-auto text-xs bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="flex items-center justify-center w-5 h-5 ml-auto text-xs text-white rounded-full bg-primary">
                     {item.badge}
                   </span>
                 )}
                 {item.badge && !sidebarOpen && (
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
+                  <span className="absolute w-2 h-2 rounded-full top-1 right-1 bg-primary" />
                 )}
               </Link>
             );
           })}
         </nav>
+        <div className="p-2 border-t border-white/5"></div>
 
         {/* Collapse toggle */}
-        <div className="p-2 border-t border-white/5">
+        {/* <div className="p-2 border-t border-white/5">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:text-foreground hover:bg-white/5 transition-colors"
@@ -260,45 +208,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </svg>
             {sidebarOpen && <span className="text-sm">Хураах</span>}
           </button>
-        </div>
+        </div> */}
       </aside>
-
-      {/* Main */}
-      <main className="flex-1 overflow-auto">
-        {/* Top bar */}
-        <div className="sticky top-0 z-30 flex items-center justify-between px-6 py-3 border-b border-white/5 bg-background/80 backdrop-blur-sm">
-          <div>
-            <h1 className="font-display font-700 text-foreground text-base">Хяналтын самбар</h1>
-            <p className="text-xs text-muted-2">ElectraGuard Admin Panel</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/home" className="btn-secondary text-sm py-2 px-4">
-              Вебсайт үзэх
-            </Link>
-            <button
-              onClick={() => setAuthenticated(false)}
-              className="w-9 h-9 rounded-lg bg-surface-2 border border-white/5 flex items-center justify-center text-muted hover:text-foreground transition-colors"
-              aria-label="Гарах"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">{children}</div>
-      </main>
-    </div>
+    </>
   );
-}
+};
+
+export default AdminSidebar;

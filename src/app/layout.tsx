@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import '../styles/tailwind.css';
+import { ToastContainer } from 'react-toastify';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,7 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="mn">
-      <body>{children}</body>
+      <body>
+        {children}
+        <ToastContainer />
+      </body>
     </html>
   );
 }

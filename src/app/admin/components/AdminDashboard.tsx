@@ -87,7 +87,7 @@ export default function AdminDashboard() {
     heroSubtitle:
       'Галын дохиолол, холбоо дохиолол болон цахилгаан автоматжуулалтын зураг зурах болон угсралтын цогц үйлчилгээ.',
     phone: '+976 7711-2345',
-    email: 'info@electroguard.mn',
+    email: 'info@eca.mn',
   });
   const [saved, setSaved] = useState(false);
 
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
       {/* Tabs */}
-      <div className="flex gap-1 p-1 rounded-xl bg-surface border border-white/5 w-fit">
+      <div className="flex gap-1 p-1 border rounded-xl bg-surface border-white/5 w-fit">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -124,16 +124,16 @@ export default function AdminDashboard() {
       {activeTab === 'overview' && (
         <div className="space-y-6">
           {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {stats.map((stat) => (
-              <div key={stat.label} className="p-5 rounded-xl border border-white/5 bg-surface">
+              <div key={stat.label} className="p-5 border rounded-xl border-white/5 bg-surface">
                 <div className="flex items-start justify-between mb-3">
                   <span className="text-2xl">{stat.icon}</span>
                   <span className="text-xs px-2 py-0.5 rounded-md bg-green-500/10 text-green-400 border border-green-500/20">
                     {stat.change}
                   </span>
                 </div>
-                <p className="font-display font-800 text-3xl mb-1" style={{ color: stat.color }}>
+                <p className="mb-1 text-3xl font-display font-800" style={{ color: stat.color }}>
                   {stat.value}
                 </p>
                 <p className="text-sm text-muted">{stat.label}</p>
@@ -142,12 +142,12 @@ export default function AdminDashboard() {
           </div>
 
           {/* Recent inquiries preview */}
-          <div className="p-5 rounded-xl border border-white/5 bg-surface">
+          <div className="p-5 border rounded-xl border-white/5 bg-surface">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-display font-700 text-foreground">Сүүлийн хүсэлтүүд</h3>
               <button
                 onClick={() => setActiveTab('inquiries')}
-                className="text-xs text-primary hover:text-primary-light transition-colors"
+                className="text-xs transition-colors text-primary hover:text-primary-light"
               >
                 Бүгдийг харах →
               </button>
@@ -156,14 +156,14 @@ export default function AdminDashboard() {
               {recentInquiries.slice(0, 3).map((inq) => (
                 <div
                   key={inq.name}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-white/5"
+                  className="flex items-center gap-3 p-3 border rounded-lg bg-surface-2 border-white/5"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-surface-3 flex items-center justify-center text-sm font-700 text-primary">
+                  <div className="flex items-center justify-center w-8 h-8 text-sm rounded-lg bg-surface-3 font-700 text-primary">
                     {inq.name[0]}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-600 text-foreground truncate">{inq.name}</p>
-                    <p className="text-xs text-muted truncate">
+                    <p className="text-sm truncate font-600 text-foreground">{inq.name}</p>
+                    <p className="text-xs truncate text-muted">
                       {inq.company} · {inq.service}
                     </p>
                   </div>
@@ -178,12 +178,12 @@ export default function AdminDashboard() {
           </div>
 
           {/* Active projects */}
-          <div className="p-5 rounded-xl border border-white/5 bg-surface">
-            <h3 className="font-display font-700 text-foreground mb-4">Идэвхтэй төслүүд</h3>
+          <div className="p-5 border rounded-xl border-white/5 bg-surface">
+            <h3 className="mb-4 font-display font-700 text-foreground">Идэвхтэй төслүүд</h3>
             <div className="space-y-4">
               {projects.map((proj) => (
                 <div key={proj.title} className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="flex-shrink-0 w-12 h-12 overflow-hidden rounded-lg">
                     <AppImage
                       src={proj.image}
                       alt={proj.imageAlt}
@@ -194,13 +194,13 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-sm font-600 text-foreground truncate">{proj.title}</p>
-                      <span className="text-xs text-primary font-mono ml-2">{proj.progress}%</span>
+                      <p className="text-sm truncate font-600 text-foreground">{proj.title}</p>
+                      <span className="ml-2 font-mono text-xs text-primary">{proj.progress}%</span>
                     </div>
                     <p className="text-xs text-muted mb-1.5">{proj.category}</p>
                     <div className="h-1.5 rounded-full bg-surface-3 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-primary transition-all duration-500"
+                        className="h-full transition-all duration-500 rounded-full bg-primary"
                         style={{ width: `${proj.progress}%` }}
                       />
                     </div>
@@ -214,7 +214,7 @@ export default function AdminDashboard() {
 
       {/* Inquiries */}
       {activeTab === 'inquiries' && (
-        <div className="p-5 rounded-xl border border-white/5 bg-surface">
+        <div className="p-5 border rounded-xl border-white/5 bg-surface">
           <div className="flex items-center justify-between mb-5">
             <h3 className="font-display font-700 text-foreground">Бүх хүсэлтүүд</h3>
             <span className="tag-badge">47 нийт</span>
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
                   {['Нэр', 'Байгууллага', 'Үйлчилгээ', 'Огноо', 'Төлөв', 'Үйлдэл'].map((h) => (
                     <th
                       key={h}
-                      className="text-left py-3 px-3 text-xs font-mono text-muted-2 uppercase tracking-wider"
+                      className="px-3 py-3 font-mono text-xs tracking-wider text-left uppercase text-muted-2"
                     >
                       {h}
                     </th>
@@ -235,20 +235,20 @@ export default function AdminDashboard() {
               </thead>
               <tbody className="divide-y divide-white/5">
                 {recentInquiries.map((inq) => (
-                  <tr key={inq.name} className="hover:bg-surface-2 transition-colors">
-                    <td className="py-3 px-3 font-600 text-foreground">{inq.name}</td>
-                    <td className="py-3 px-3 text-muted">{inq.company}</td>
-                    <td className="py-3 px-3 text-muted">{inq.service}</td>
-                    <td className="py-3 px-3 text-muted font-mono text-xs">{inq.date}</td>
-                    <td className="py-3 px-3">
+                  <tr key={inq.name} className="transition-colors hover:bg-surface-2">
+                    <td className="px-3 py-3 font-600 text-foreground">{inq.name}</td>
+                    <td className="px-3 py-3 text-muted">{inq.company}</td>
+                    <td className="px-3 py-3 text-muted">{inq.service}</td>
+                    <td className="px-3 py-3 font-mono text-xs text-muted">{inq.date}</td>
+                    <td className="px-3 py-3">
                       <span
                         className={`text-xs px-2 py-0.5 rounded-md border font-medium ${statusColors[inq.status]}`}
                       >
                         {inq.status}
                       </span>
                     </td>
-                    <td className="py-3 px-3">
-                      <button className="text-xs text-primary hover:text-primary-light transition-colors">
+                    <td className="px-3 py-3">
+                      <button className="text-xs transition-colors text-primary hover:text-primary-light">
                         Харах
                       </button>
                     </td>
@@ -265,7 +265,7 @@ export default function AdminDashboard() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-700 text-foreground">Төслүүд удирдах</h3>
-            <button className="btn-primary text-sm py-2">
+            <button className="py-2 text-sm btn-primary">
               <svg
                 width="16"
                 height="16"
@@ -280,17 +280,17 @@ export default function AdminDashboard() {
               Шинэ төсөл
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((proj) => (
               <div
                 key={proj.title}
-                className="p-4 rounded-xl border border-white/5 bg-surface group"
+                className="p-4 border rounded-xl border-white/5 bg-surface group"
               >
-                <div className="relative overflow-hidden rounded-lg aspect-video mb-4">
+                <div className="relative mb-4 overflow-hidden rounded-lg aspect-video">
                   <AppImage src={proj.image} alt={proj.imageAlt} fill className="object-cover" />
                 </div>
-                <h4 className="font-600 text-foreground text-sm mb-1">{proj.title}</h4>
-                <p className="text-xs text-muted mb-3">{proj.category}</p>
+                <h4 className="mb-1 text-sm font-600 text-foreground">{proj.title}</h4>
+                <p className="mb-3 text-xs text-muted">{proj.category}</p>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex-1 h-1.5 rounded-full bg-surface-3 overflow-hidden">
                     <div
@@ -298,7 +298,7 @@ export default function AdminDashboard() {
                       style={{ width: `${proj.progress}%` }}
                     />
                   </div>
-                  <span className="text-xs text-primary font-mono">{proj.progress}%</span>
+                  <span className="font-mono text-xs text-primary">{proj.progress}%</span>
                 </div>
                 <div className="flex gap-2">
                   <button className="flex-1 py-1.5 rounded-lg bg-surface-2 border border-white/5 text-xs text-muted hover:text-foreground transition-colors">
@@ -317,8 +317,8 @@ export default function AdminDashboard() {
       {/* Settings */}
       {activeTab === 'settings' && (
         <div className="space-y-5">
-          <div className="p-6 rounded-xl border border-white/5 bg-surface">
-            <h3 className="font-display font-700 text-foreground mb-5">Hero хэсгийн контент</h3>
+          <div className="p-6 border rounded-xl border-white/5 bg-surface">
+            <h3 className="mb-5 font-display font-700 text-foreground">Hero хэсгийн контент</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-xs text-muted-2 mb-1.5 font-mono uppercase tracking-wider">
@@ -339,15 +339,15 @@ export default function AdminDashboard() {
                   value={editState.heroSubtitle}
                   onChange={(e) => setEditState((p) => ({ ...p, heroSubtitle: e.target.value }))}
                   rows={3}
-                  className="input-field resize-none"
+                  className="resize-none input-field"
                 />
               </div>
             </div>
           </div>
 
-          <div className="p-6 rounded-xl border border-white/5 bg-surface">
-            <h3 className="font-display font-700 text-foreground mb-5">Холбоо барих мэдээлэл</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
+          <div className="p-6 border rounded-xl border-white/5 bg-surface">
+            <h3 className="mb-5 font-display font-700 text-foreground">Холбоо барих мэдээлэл</h3>
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="block text-xs text-muted-2 mb-1.5 font-mono uppercase tracking-wider">
                   Утас
