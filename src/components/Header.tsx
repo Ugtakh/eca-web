@@ -30,21 +30,21 @@ export default function Header() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="flex items-center justify-between px-6 mx-auto max-w-7xl">
         {/* Logo */}
-        <Link href="/" className="flex items-center  group flex-col">
-          <AppLogo size={60} />
-          {/* <span className="font-display font-800 text-sm tracking-tight text-foreground">ECA</span>
-          <span className="text-accent text-sm"> Engineering</span> */}
+        <Link href="/" className="flex flex-col items-center group">
+          <AppLogo size={100} />
+          {/* <span className="text-sm tracking-tight font-display font-800 text-foreground">ECA</span>
+          <span className="text-sm text-accent"> Engineering</span> */}
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="items-center hidden gap-1 md:flex">
           {navLinks?.map((link) => (
             <a
               key={link?.href}
               href={link?.href}
-              className="px-4 py-2  font-medium text-muted hover:text-foreground transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-2 font-medium transition-colors rounded-lg text-muted hover:text-foreground hover:bg-white/5"
             >
               {link?.label}
             </a>
@@ -52,8 +52,8 @@ export default function Header() {
         </nav>
 
         {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="#contact" className="btn-primary text-sm px-1 py-1">
+        <div className="items-center hidden gap-3 md:flex">
+          <Link href="#contact" className="px-1 py-1 text-sm btn-primary">
             <svg
               width="16"
               height="16"
@@ -71,7 +71,7 @@ export default function Header() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors"
+          className="p-2 transition-colors rounded-lg md:hidden hover:bg-white/5"
           aria-label="Toggle menu"
         >
           <div className="w-5 flex flex-col gap-1.5">
@@ -92,13 +92,13 @@ export default function Header() {
       <div
         className={`md:hidden transition-all duration-300 overflow-hidden ${mobileOpen ? 'max-h-960 opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div className="bg-surface/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 flex flex-col gap-1">
+        <div className="flex flex-col gap-1 px-6 py-4 border-t bg-surface/95 backdrop-blur-xl border-white/5">
           {navLinks?.map((link) => (
             <Link
               key={link?.href}
               href={link?.href}
               onClick={() => setMobileOpen(false)}
-              className="px-4 py-3 font-medium text-muted hover:text-foreground transition-colors rounded-lg hover:bg-white/5"
+              className="px-4 py-3 font-medium transition-colors rounded-lg text-muted hover:text-foreground hover:bg-white/5"
             >
               {link?.label}
             </Link>
@@ -106,7 +106,7 @@ export default function Header() {
           <Link
             href="#contact"
             onClick={() => setMobileOpen(false)}
-            className="btn-primary mt-2 justify-center"
+            className="justify-center mt-2 btn-primary"
           >
             Холбоо барих
           </Link>

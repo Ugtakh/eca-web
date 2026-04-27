@@ -1,35 +1,30 @@
-'use client';
+import React from 'react';
+import { redirect } from 'next/navigation';
 
-import React, { useEffect } from 'react';
-import AdminSidebar from './components/AdminSidebar';
 import AdminHeader from './components/AdminHeader';
-import { useRouter } from 'next/navigation';
-import { AuthProvider } from '@/providers/AuthProvider';
+import AdminSidebar from './components/AdminSidebar';
 import { getUser } from '@/lib/actions/auth';
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getUser();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!user) router.replace('/auth');
-  }, [user, router]);
+  if (!user) {
+    redirect('/auth');
+  }
 
-  if (!user) return null;
+  const headerUser = {
+    id: user.$id,
+    name: user.name || 'Admin User',
+    email: user.email || '',
+  };
 
   return (
-    <AuthProvider user={user}>
-      <div className="flex min-h-screen bg-background">
-        {/* Main */}
-        <AdminSidebar />
-        <main className="flex-1 overflow-auto">
-          {/* Top bar */}
-          <AdminHeader />
-
-          {/* Content */}
-          <div className="p-6">{children}</div>
-        </main>
-      </div>
-    </AuthProvider>
+    <div className="flex min-h-screen bg-background">
+      <AdminSidebar />
+      <main className="flex-1 overflow-auto">
+        <AdminHeader user={headerUser} />
+        <div className="p-6">{children}</div>
+      </main>
+    </div>
   );
 }

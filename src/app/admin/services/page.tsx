@@ -1,7 +1,8 @@
-import React from 'react';
+import { getServicesSectionContent } from '@/lib/cms/services-section';
 
-const Services = () => {
-  return <div>Services</div>;
-};
+import ServicesCmsForm from './ServicesCmsForm';
 
-export default Services;
+export default async function ServicesPage() {
+  const content = await getServicesSectionContent();
+  return <ServicesCmsForm initialServices={content.services} />;
+}

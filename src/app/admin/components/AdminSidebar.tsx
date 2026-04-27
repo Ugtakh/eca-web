@@ -98,6 +98,41 @@ const navItems = [
     ),
   },
   {
+    label: 'Hero Section',
+    href: '/admin/herosection',
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M12 3l2.7 5.47L21 9.39l-4.5 4.38 1.06 6.22L12 17.27 6.44 20l1.06-6.22L3 9.39l6.3-.92L12 3z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Statistics',
+    href: '/admin/stats',
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M3 3v18h18" />
+        <rect x="7" y="12" width="3" height="6" />
+        <rect x="12" y="9" width="3" height="9" />
+        <rect x="17" y="6" width="3" height="12" />
+      </svg>
+    ),
+  },
+  {
     label: 'Хүсэлтүүд',
     href: '/admin/inquiries',
     icon: (
@@ -140,7 +175,7 @@ const AdminSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <>
+    <div className="flex min-h-screen bg-background/80">
       {/* Sidebar */}
       <aside
         className={`admin-sidebar flex-shrink-0 transition-all duration-300 flex flex-col ${
@@ -148,7 +183,7 @@ const AdminSidebar = () => {
         }`}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-white/5 flex items-center gap-2.5 justify-center">
+        <div className="p-4 border-b border-white/5 flex items-center gap-2.5 justify-center rela">
           <AppLogo size={80} />
           {/* {sidebarOpen && (
             <span className="text-sm font-display font-700 text-foreground whitespace-nowrap">
@@ -210,7 +245,7 @@ const AdminSidebar = () => {
           </button>
         </div> */}
       </aside>
-    </>
+    </div>
   );
 };
 

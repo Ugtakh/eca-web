@@ -1,7 +1,8 @@
-import React from 'react';
+import { getProjectsSectionContent } from '@/lib/cms/projects-section';
 
-const Projects = () => {
-  return <div>Projects</div>;
-};
+import ProjectsCmsForm from './ProjectsCmsForm';
 
-export default Projects;
+export default async function ProjectsPage() {
+  const content = await getProjectsSectionContent().catch(() => ({ projects: [] }));
+  return <ProjectsCmsForm initialProjects={content.projects} />;
+}

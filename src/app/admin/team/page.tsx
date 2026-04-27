@@ -1,7 +1,15 @@
-import React from 'react';
+import { getTeamSectionContent } from '@/lib/cms/team-section';
 
-const Team = () => {
-  return <div>Team</div>;
-};
+import TeamCmsForm from './TeamCmsForm';
 
-export default Team;
+export default async function TeamPage() {
+  let content;
+  try {
+    content = await getTeamSectionContent();
+  } catch (error) {
+    console.error('Failed to load team content:', error);
+    content = { team: [] };
+  }
+
+  return <TeamCmsForm initialContent={content} />;
+}

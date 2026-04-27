@@ -1,65 +1,14 @@
 import React from 'react';
 import AppImage from '@/components/ui/AppImage';
+import { defaultTeamSectionContent, type TeamSectionContent } from '@/lib/cms/team-section';
 
-const team = [
-  {
-    name: 'C. Эрдэнэсайхан',
-    role: 'Үүсгэн байгуулагч & Гүйцэтгэх захирал',
-    bio: 'Цахилгааны үйлдвэрийн автоматжуулал инженерчлэлд 10+ жил.',
-    image:
-      'https://scontent.fuln6-3.fna.fbcdn.net/v/t39.30808-1/415258408_6984190151670369_3145474723106485049_n.jpg?stp=c683.0.1365.1365a_dst-jpg_s480x480_tt6&_nc_cat=103&ccb=1-7&_nc_sid=1d2534&_nc_ohc=IV_UILLnIdYQ7kNvwFxEJvP&_nc_oc=Adq-YiZCSnnifhEyfRfnDUBi0B74IJVvuL8188xQy_KOhaFeFaYNSWYxkweUDO7zqUlnDjrt-ni40i0qKtBtTKWy&_nc_zt=24&_nc_ht=scontent.fuln6-3.fna&_nc_gid=6vhpk8yB4BRg3yDGOiQJpw&_nc_ss=7a32e&oh=00_Afwrq-ISEKnPqt7hUe4MvkIgtNMAINVoxHOLayT6R7vKWg&oe=69C9E1F6',
-    imageAlt: 'Гүйцэтгэх захирал',
-    certifications: ['Автокад', 'Инженерчлэл', 'ҮПА'],
-    linkedin: '#',
-  },
-  {
-    name: 'С. Бат-Эрдэнэ',
-    role: 'Ахлах инженер',
-    bio: 'Галын дохиоллын системийн зураг зурах, угсралтад 20+ жилийн туршлагатай.',
-    image: '/assets/avatars/no-user-male.jpg',
-    imageAlt: 'Ахлах инженер',
-    certifications: ['Автокад', 'Галын систем', 'Үйлдвэрлэл'],
-    linkedin: '#',
-  },
-  {
-    name: 'Д. Энхбаяр',
-    role: 'Автоматжуулалтын инженер',
-    bio: 'Үйлдвэрийн автомажуулалт, PLC, SCADA систем 10+ жилийн туршлагатай',
-    image: '/assets/avatars/no-user-male.jpg',
-    imageAlt: 'Автоматжуулалтын инженер',
-    certifications: ['Автокад', 'Автомажуулалт', 'ПЛС', 'Скада'],
-    linkedin: '#',
-  },
-  // {
-  //   name: 'Н. Солонго',
-  //   role: 'Холбоо системийн мэргэжилтэн',
-  //   bio: 'IP сүлжээ, камерын систем болон интерком шийдлийн туршлагатай инженер.',
-  //   image: 'https://img.rocket.new/generatedImages/rocket_gen_img_1c5dd9845-1773975980350.png',
-  //   imageAlt: 'Холбоо системийн мэргэжилтэн Н. Солонго — эмэгтэй инженер',
-  //   certifications: ['AutoCAD'],
-  //   linkedin: '#',
-  // },
-  // {
-  //   name: 'Т. Мөнхбаяр',
-  //   role: 'Зураг төслийн инженер',
-  //   bio: 'AutoCAD, Revit MEP ашиглан инженерийн зураг боловсруулах чиглэлийн мэргэжилтэн.',
-  //   image: 'https://img.rocket.new/generatedImages/rocket_gen_img_134ae899f-1763299270214.png',
-  //   imageAlt: 'Зураг төслийн инженер Т. Мөнхбаяр — залуу эрэгтэй',
-  //   certifications: ['AutoCAD'],
-  //   linkedin: '#',
-  // },
-  // {
-  //   name: 'Х. Анхтуяа',
-  //   role: 'Төслийн менежер',
-  //   bio: 'Олон томоохон төслийг амжилттай удирдсан туршлагатай. PMP сертификат эзэмшигч.',
-  //   image: 'https://img.rocket.new/generatedImages/rocket_gen_img_1ee492086-1772204294242.png',
-  //   imageAlt: 'Төслийн менежер Х. Анхтуяа — мэргэжлийн хувцастай эмэгтэй',
-  //   certifications: ['AutoCAD'],
-  //   linkedin: '#',
-  // },
-];
+interface TeamSectionProps {
+  content: TeamSectionContent;
+}
 
-export default function TeamSection() {
+export default function TeamSection({ content }: TeamSectionProps) {
+  const team = content.team.length > 0 ? content.team : defaultTeamSectionContent.team;
+
   return (
     <section className="section-pad" id="team">
       <div className="max-w-7xl mx-auto px-6">

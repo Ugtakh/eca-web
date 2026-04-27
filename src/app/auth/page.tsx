@@ -54,7 +54,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full min-h-screen p-4 overflow-hidden bg-gray-100">
+    <div className="relative flex items-center justify-center w-full min-h-screen p-4 overflow-hidden bg-slate-950">
       <style jsx>{`
         .login-btn::before {
           content: '';
@@ -96,23 +96,25 @@ export default function SignInPage() {
             </div>
 
             {/* Right Side */}
-            <div className="flex flex-col justify-center p-12 text-secondary">
+            <div className="flex flex-col justify-center p-12 bg-slate-900 text-secondary">
               <div className="w-full max-w-md mx-auto">
                 <div className="mb-8 text-center">
-                  <h2 className="text-3xl font-semibold uppercase">Админ Удирдлага</h2>
-                  <p className="mt-2 text-sm text-muted-foreground ">
+                  <h2 className="text-3xl font-semibold text-gray-300 uppercase">
+                    Админ Удирдлага
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-300 text-muted-foreground">
                     бүртгэлтэй хэрэглэгчээр нэвтэрнэ үү
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                <form onSubmit={handleSubmit} className="space-y-6 text-gray-300">
+                  <div className="text-gray-300">
                     <label htmlFor="email" className="block mb-2 text-sm font-medium uppercase">
                       Имэйл хаяг
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <Mail className="w-5 h-5 text-secondary" />
+                    <div className="relative text-gray-300">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-300 pointer-events-none">
+                        <Mail className="w-5 h-5 text-gray-300" />
                       </div>
                       <input
                         id="email"
@@ -120,8 +122,8 @@ export default function SignInPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="block w-full py-3 pl-10 pr-3 text-sm bg-gray-100 border rounded-lg text-secondary border-secondary placeholder-inherit"
-                        placeholder="Enter your email"
+                        className="block w-full py-3 pl-10 pr-3 text-sm text-gray-300 border border-gray-300 rounded-lg bg-slate-900 placeholder-inherit"
+                        placeholder="Таны имэйл хаяг"
                       />
                     </div>
                   </div>
@@ -132,7 +134,7 @@ export default function SignInPage() {
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <Lock className="w-5 h-5 text-secondary" />
+                        <Lock className="w-5 h-5 text-gray-300" />
                       </div>
                       <input
                         id="password"
@@ -140,8 +142,8 @@ export default function SignInPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="block w-full py-3 pl-10 pr-12 text-sm bg-gray-100 border rounded-lg text-secondary border-secondary placeholder-inherit"
-                        placeholder="Enter your password"
+                        className="block w-full py-3 pl-10 pr-12 text-sm text-gray-300 border border-gray-300 rounded-lg bg-slate-900 placeholder-inherit"
+                        placeholder="Таны нууц үг"
                       />
                       <button
                         type="button"
@@ -150,9 +152,9 @@ export default function SignInPage() {
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
-                          <EyeOff className="w-5 h-5 text-secondary" />
+                          <EyeOff className="w-5 h-5 text-gray-300 " />
                         ) : (
-                          <Eye className="w-5 h-5 text-secondary" />
+                          <Eye className="w-5 h-5 text-gray-300 " />
                         )}
                       </button>
                     </div>

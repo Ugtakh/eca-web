@@ -37,6 +37,6 @@ export const getUser = async () => {
 export const signOut = async () => {
   const { account } = await createSessionClient();
   (await cookies()).delete("session");
-  account.deleteSession({ sessionId: "current" });
-  redirect("/login");
+  await account.deleteSession({ sessionId: "current" });
+  redirect("/auth");
 };

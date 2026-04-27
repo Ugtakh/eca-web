@@ -1,7 +1,9 @@
-import React from 'react';
+import { getAllNews } from '@/lib/cms/news';
 
-const News = () => {
-  return <div>News</div>;
-};
+import NewsCmsForm from './NewsCmsForm';
 
-export default News;
+export default async function NewsAdminPage() {
+  const articles = await getAllNews();
+
+  return <NewsCmsForm initialArticles={articles} />;
+}

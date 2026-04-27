@@ -1,12 +1,43 @@
 'use client';
 
+import { defaultHeroSectionContent, type HeroSectionContent } from '@/lib/cms/hero-section';
 import React, { useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import Link from 'next/link';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  content: HeroSectionContent;
+}
+
+export default function HeroSection({ content }: HeroSectionProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const slides = content.slides.length > 0 ? content.slides : defaultHeroSectionContent.slides;
+  const activeSlide = slides[activeSlideIndex] ?? slides[0];
+  const titleLines = activeSlide.title
+    .split('-')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const rotationMs = Math.min(5000, Math.max(3000, (content.rotationSeconds || 4) * 1000));
+
+  useEffect(() => {
+    if (slides.length <= 1) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % slides.length);
+    }, rotationMs);
+
+    return () => window.clearInterval(timer);
+  }, [rotationMs, slides.length]);
+
+  useEffect(() => {
+    if (activeSlideIndex >= slides.length) {
+      setActiveSlideIndex(0);
+    }
+  }, [activeSlideIndex, slides.length]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -105,7 +136,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-gradient noise-overlay"
+      className="relative flex flex-col justify-center min-h-screen overflow-hidden hero-gradient noise-overlay"
       onMouseMove={handleMouseMove}
       id="hero"
     >
@@ -118,7 +149,7 @@ export default function HeroSection() {
 
       {/* Grid pattern */}
       <div
-        className="absolute inset-0 grid-pattern pointer-events-none"
+        className="absolute inset-0 pointer-events-none grid-pattern"
         style={{ backgroundSize: '60px 60px', zIndex: 1 }}
       />
 
@@ -143,33 +174,30 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 px-6 pt-32 pb-20 mx-auto max-w-7xl">
+        <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Left */}
           <div>
-            {/* Tag */}
-            {/* <div className="tag-badge mb-6 inline-flex reveal-up">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-status-pulse" />
-              Монголын тэргүүлэх компани
-            </div> */}
-
             {/* Headline */}
             <h1 className="font-display font-900 text-foreground leading-[0.92] tracking-tight mb-6 reveal-up delay-100">
-              <span className="block text-5xl md:text-6xl lg:text-[70px]">Галын</span>
-              <span className="block text-5xl md:text-6xl lg:text-[70px]">дохиолол &amp;</span>
-              <span className="block text-5xl md:text-6xl lg:text-[70px] glow-text text-accent">
-                Цахилгаан
-              </span>
-              <span className="block text-5xl md:text-6xl lg:text-[70px]">Автоматжуулалт</span>
+              {titleLines.map((line, index) => {
+                return (
+                  <span
+                    key={`${line}-${index}`}
+                    className={`block text-5xl md:text-6xl lg:text-[70px] ${index === 1 ? 'glow-text text-accent' : ''}`}
+                  >
+                    {line}
+                  </span>
+                );
+              })}
             </h1>
 
-            <p className="text-muted text-lg leading-relaxed max-w-lg mb-10 reveal-up delay-200">
-              Галын дохиолол, холбоо дохиолол болон цахилгаан автоматжуулалтын зураг зурах болон
-              угсралтын цогц үйлчилгээ. Баталгаажсан инженерүүд, найдвартай шийдэл.
+            <p className="max-w-lg mb-10 text-lg leading-relaxed delay-200 text-muted reveal-up">
+              {activeSlide.description}
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mb-12 reveal-up delay-300">
+            <div className="flex flex-wrap gap-3 mb-12 delay-300 reveal-up">
               <Link href="#contact" className="btn-primary">
                 <svg
                   width="18"
@@ -201,19 +229,10 @@ export default function HeroSection() {
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 reveal-up delay-400">
-              {[
-                // { icon: '🔒', text: 'ISO 9001 Сертификат' },
-                { icon: '⚡', text: '10+ жилийн туршлага' },
-                { icon: '🛡️', text: '50+ дууссан төсөл' },
-              ].map((badge) => (
-                <div
-                  key={badge.text}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-2 border border-white/5 text-sm text-muted"
-                >
-                  <span>{badge.icon}</span>
-                  <span>{badge.text}</span>
-                </div>
-              ))}
+              <div className="flex items-center gap-2 px-3 py-2 text-sm border rounded-lg bg-surface-2 border-white/5 text-muted">
+                <span>⚡</span>
+                <span>{activeSlide.bannerText}</span>
+              </div>
             </div>
           </div>
 
@@ -221,60 +240,67 @@ export default function HeroSection() {
           <div className="relative hidden lg:block">
             {/* Main visual card */}
             <div
-              className="relative rounded-2xl overflow-hidden border border-white/8 float-anim"
+              className="relative overflow-hidden border rounded-2xl border-white/8 float-anim"
               style={{ background: 'var(--surface-2)' }}
             >
-              <AppImage
-                src="https://img.rocket.new/generatedImages/rocket_gen_img_1171d4649-1772595593394.png"
-                alt="Цахилгаан угсралтын ажил — инженер хяналтын самбарт ажиллаж байна"
-                width={640}
-                height={420}
-                className="w-full object-cover"
-                priority
-              />
+              <div className="relative h-[420px] w-full">
+                {slides.map((slide, index) => (
+                  <div
+                    key={`${slide.image.src}-${index}`}
+                    className={`absolute inset-0 transition-opacity duration-700 ${
+                      index === activeSlideIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <AppImage
+                      src={slide.image.src}
+                      alt={slide.image.alt}
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  </div>
+                ))}
+              </div>
 
-              {/* Overlay info card */}
-              {/* <div
-                className="absolute bottom-4 left-4 right-4 p-4 rounded-xl backdrop-blur-sm border border-white/10"
-                style={{ background: 'rgba(10,11,15,0.85)' }}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-muted mb-0.5 font-mono">ИДЭВХТЭЙ ТӨСӨЛ</p>
-                    <p className="text-sm font-600 text-foreground">
-                      Улаанбаатар — Оффис цогцолбор
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-green-400 status-dot" />
-                    <span className="text-xs text-green-400">Явагдаж байна</span>
-                  </div>
+              {slides.length > 1 && (
+                <div className="absolute z-20 flex items-center gap-2 px-3 py-2 border rounded-full bottom-4 right-4 border-white/10 bg-black/35 backdrop-blur-sm">
+                  {slides.map((slide, index) => (
+                    <button
+                      key={`${slide.image.alt}-${index}`}
+                      type="button"
+                      onClick={() => setActiveSlideIndex(index)}
+                      aria-label={`Hero slide ${index + 1}`}
+                      className={`h-2.5 rounded-full transition-all ${
+                        index === activeSlideIndex ? 'w-7 bg-white' : 'w-2.5 bg-white/45'
+                      }`}
+                    />
+                  ))}
                 </div>
-              </div> */}
+              )}
             </div>
 
             {/* Floating stat cards */}
-            <div
-              className="absolute -top-6 -right-6 p-4 rounded-xl border border-white/10 backdrop-blur-sm"
+            {/* <div
+              className="absolute p-4 border -top-6 -right-6 rounded-xl border-white/10 backdrop-blur-sm"
               style={{ background: 'rgba(17,19,24,0.9)', transform: 'rotate(3deg)' }}
             >
-              <p className="font-display font-800 text-3xl text-accent">50+</p>
+              <p className="text-3xl font-display font-800 text-accent">50+</p>
               <p className="text-xs text-muted">Дууссан төсөл</p>
             </div>
             <div
-              className="absolute -bottom-6 -left-6 p-4 rounded-xl border border-white/10 backdrop-blur-sm"
+              className="absolute p-4 border -bottom-6 -left-6 rounded-xl border-white/10 backdrop-blur-sm"
               style={{ background: 'rgba(17,19,24,0.9)', transform: 'rotate(-2deg)' }}
             >
-              <p className="font-display font-800 text-3xl text-accent">98%</p>
+              <p className="text-3xl font-display font-800 text-accent">98%</p>
               <p className="text-xs text-muted">Хэрэглэгчийн сэтгэл ханамж</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Bottom scroll indicator */}
         <div className="flex justify-center mt-16 reveal-up delay-600">
           <div className="flex flex-col items-center gap-2 text-muted-2">
-            <span className="text-xs font-mono tracking-widest uppercase">Доош гүйлгэх</span>
+            <span className="font-mono text-xs tracking-widest uppercase">Доош гүйлгэх</span>
             <div className="w-px h-12 bg-gradient-to-b from-muted-2 to-transparent" />
           </div>
         </div>
