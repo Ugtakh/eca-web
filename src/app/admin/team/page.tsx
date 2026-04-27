@@ -2,6 +2,8 @@ import { getTeamSectionContent } from '@/lib/cms/team-section';
 
 import TeamCmsForm from './TeamCmsForm';
 
+export const dynamic = 'force-dynamic';
+
 export default async function TeamPage() {
   let content;
   try {
@@ -11,5 +13,5 @@ export default async function TeamPage() {
     content = { team: [] };
   }
 
-  return <TeamCmsForm initialContent={content} />;
+  return <TeamCmsForm initialMembers={content.team} />;
 }
