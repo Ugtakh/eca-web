@@ -43,7 +43,6 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Mock submit — replace with actual API call
     await new Promise((r) => setTimeout(r, 1200));
     setLoading(false);
     setSubmitted(true);
