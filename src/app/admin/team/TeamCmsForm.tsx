@@ -445,7 +445,7 @@ export default function TeamCmsForm({ initialMembers }: TeamCmsFormProps) {
                 <div className="flex flex-wrap items-center gap-3 mt-3">
                   <button
                     type="button"
-                    onClick={() => void handleUpload()}
+                    onClick={() => handleUpload()}
                     className="btn-secondary"
                     disabled={uploadState === 'uploading' || isMutating}
                   >

@@ -19,10 +19,11 @@ const client = new Client().setEndpoint(endpoint).setProject(projectId).setKey(a
 const tables = new TablesDB(client);
 
 const OLD_TABLES = [
-  process.env.APPWRITE_HERO_SECTION_TABLE_ID     ?? 'heroSectionCms',
-  process.env.APPWRITE_STATS_SECTION_TABLE_ID    ?? 'statsSectionCms',
+  process.env.APPWRITE_HERO_SECTION_TABLE_ID    ?? 'heroSectionCms',
+  process.env.APPWRITE_STATS_SECTION_TABLE_ID   ?? 'statsSectionCms',
   process.env.APPWRITE_SERVICES_SECTION_TABLE_ID ?? 'servicesSectionCms',
   process.env.APPWRITE_PROJECTS_SECTION_TABLE_ID ?? 'projectsSectionCms',
+  process.env.APPWRITE_TEAM_SECTION_TABLE_ID    ?? 'teamSectionCms',
 ];
 
 console.log('\n🗑  Хуучин таблиудыг устгаж байна...\n');

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 
-const navItems = [
+const navItems: Array<{ label: string; href: string; icon: React.ReactNode; badge?: number }> = [
   {
     label: 'Хяналтын самбар',
     href: '/admin',
@@ -22,6 +22,41 @@ const navItems = [
         <rect x="14" y="3" width="7" height="7" />
         <rect x="14" y="14" width="7" height="7" />
         <rect x="3" y="14" width="7" height="7" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Нүүр хэсэг',
+    href: '/admin/herosection',
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M12 3l2.7 5.47L21 9.39l-4.5 4.38 1.06 6.22L12 17.27 6.44 20l1.06-6.22L3 9.39l6.3-.92L12 3z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Cтатистик баримт',
+    href: '/admin/stats',
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M3 3v18h18" />
+        <rect x="7" y="12" width="3" height="6" />
+        <rect x="12" y="9" width="3" height="9" />
+        <rect x="17" y="6" width="3" height="12" />
       </svg>
     ),
   },
@@ -79,7 +114,7 @@ const navItems = [
     ),
   },
   {
-    label: 'Мэдээ',
+    label: 'Мэдээнүүд',
     href: '/admin/news',
     icon: (
       <svg
@@ -97,44 +132,10 @@ const navItems = [
       </svg>
     ),
   },
-  {
-    label: 'Hero Section',
-    href: '/admin/herosection',
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path d="M12 3l2.7 5.47L21 9.39l-4.5 4.38 1.06 6.22L12 17.27 6.44 20l1.06-6.22L3 9.39l6.3-.92L12 3z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Statistics',
-    href: '/admin/stats',
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path d="M3 3v18h18" />
-        <rect x="7" y="12" width="3" height="6" />
-        <rect x="12" y="9" width="3" height="9" />
-        <rect x="17" y="6" width="3" height="12" />
-      </svg>
-    ),
-  },
+
   {
     label: 'Хүсэлтүүд',
-    href: '/admin/inquiries',
+    href: '/admin/requests',
     icon: (
       <svg
         width="18"
@@ -148,7 +149,6 @@ const navItems = [
         <polyline points="22,6 12,13 2,6" />
       </svg>
     ),
-    badge: 3,
   },
   {
     label: 'Тохиргоо',

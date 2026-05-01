@@ -14,7 +14,12 @@ const nextConfig = {
     remotePatterns: imageHosts,
     minimumCacheTTL: 60,
   },
-  
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '50mb',
+    }
+  },
+ 
 
   webpack(config) {
     config.module.rules.push({

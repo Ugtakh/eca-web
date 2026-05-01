@@ -17,19 +17,28 @@ import { getServicesSectionContent } from '@/lib/cms/services-section';
 import { getProjectsSectionContent } from '@/lib/cms/projects-section';
 import { getTeamSectionContent, defaultTeamSectionContent } from '@/lib/cms/team-section';
 import { getLatestNews } from '@/lib/cms/news';
+import { getContactSectionInfo, defaultContactInfo } from '@/lib/cms/contact-info';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [heroContent, statsContent, servicesContent, projectsContent, teamContent, newsArticles] =
-    await Promise.all([
-      getHeroSectionContent(),
-      getStatsSectionContent(),
-      getServicesSectionContent(),
-      getProjectsSectionContent(),
-      getTeamSectionContent().catch(() => defaultTeamSectionContent),
-      getLatestNews(4).catch(() => []),
-    ]);
+  const [
+    heroContent,
+    statsContent,
+    servicesContent,
+    projectsContent,
+    teamContent,
+    newsArticles,
+    contactInfo,
+  ] = await Promise.all([
+    getHeroSectionContent(),
+    getStatsSectionContent(),
+    getServicesSectionContent(),
+    getProjectsSectionContent(),
+    getTeamSectionContent().catch(() => defaultTeamSectionContent),
+    getLatestNews(4).catch(() => []),
+    getContactSectionInfo().catch(() => defaultContactInfo),
+  ]);
 
   return (
     <main className="min-h-screen overflow-hidden bg-background">
@@ -43,7 +52,7 @@ export default async function HomePage() {
       <TeamSection content={teamContent} />
       {/* <TestimonialsSection /> */}
       <NewsSection articles={newsArticles} />
-      <ContactSection />
+      <ContactSection info={contactInfo} />
       <Footer />
     </main>
   );
